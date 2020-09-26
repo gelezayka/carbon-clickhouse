@@ -123,7 +123,7 @@ LineLoop:
 		for i := 0; i < len(tag1); i++ {
 			wb.WriteUint16(reader.Days())
 			wb.WriteString(tag1[i])
-			wb.WriteBytes(name)
+			wb.WriteString(m.Path)
 			wb.WriteUVarint(uint64(tagsWritten))
 			wb.Write(tagsBuf.Bytes())
 			wb.WriteUint32(version)

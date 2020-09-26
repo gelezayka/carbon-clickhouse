@@ -57,7 +57,12 @@ func (u *Points) parseAndFilter(filename string, out io.Writer) error {
 
 		if !blacklisted {
 			wb.Reset()
-			wb.WriteGraphitePoint(name, reader.Value(), reader.Timestamp(), reader.Version())
+			p := bytes.IndexByte(name, '?')
+			if p < 0 {
+			    wb.WriteGraphitePoint(name, reader.Value(), reader.Timestamp(), reader.Version())
+			} else {
+			    wb.WriteGraphitePoint(name[:p], reader.Value(), reader.Timestamp(), reader.Version())
+			}
 
 			_, err = out.Write(wb.Bytes())
 			if err != nil {
