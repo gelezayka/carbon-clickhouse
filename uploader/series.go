@@ -48,10 +48,11 @@ LineLoop:
 			break
 		}
 
-		// skip tagged
-		if bytes.IndexByte(name, '?') >= 0 {
-			continue
-		}
+		// strip tags
+                pc := bytes.IndexByte(name, '?')
+                if pc >= 0 {
+                    name = name[:pc]
+                }
 
 		key := fmt.Sprintf("%d:%s", reader.Days(), unsafeString(name))
 

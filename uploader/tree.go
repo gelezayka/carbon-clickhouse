@@ -72,10 +72,11 @@ LineLoop:
 			break
 		}
 
-		// skip tagged
-		if bytes.IndexByte(name, '?') >= 0 {
-			continue
-		}
+		// strip tags
+                pc := bytes.IndexByte(name, '?')
+                if pc >= 0 {
+                    name = name[:pc]
+                }
 
 		if u.existsCache.Exists(unsafeString(name)) {
 			continue LineLoop
